@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@android:drawable/ic_btn_speak_now"
+        android:title="ホーム" />
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@android:drawable/ic_delete"
+        android:title="お気に入り" />
+
+    <item
+        android:id="@+id/history"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:title="履歴" />
+
+
+    <item
+        android:id="@+id/others"
+        android:icon="@android:drawable/ic_dialog_alert"
+        android:title="その他" />
+
+</menu>
