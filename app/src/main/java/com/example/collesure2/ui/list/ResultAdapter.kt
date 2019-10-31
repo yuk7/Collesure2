@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.collesure2.R
 import kotlinx.android.synthetic.main.item.view.*
 
-class ListAdapter(private val context: Context, private val imageUrlList: List<String>) :
-    RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class ResultAdapter(private val context: Context, private val imageUrlList: List<String>) :
+    RecyclerView.Adapter<ResultAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -23,7 +23,7 @@ class ListAdapter(private val context: Context, private val imageUrlList: List<S
         return imageUrlList.size
     }
 
-    override fun onBindViewHolder(holder: ListAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ResultAdapter.MyViewHolder, position: Int) {
         Glide.with(context)
             .load(imageUrlList.get(position))
             .into(holder.itemView.item_iv)

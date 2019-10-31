@@ -6,11 +6,18 @@ import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.fragment.app.FragmentManager
 import com.example.collesure2.R
+import com.example.collesure2.ui.list.ResultFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.regex.Pattern
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,14 +30,21 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             word = editText.text.toString()
-            val intent = Intent(this, ListFragment::class.java)
+
 
             val task = object : MyAsyncTask() {
                 override fun onPostExecute(result: String?) {
                     super.onPostExecute(result)
                     intent.putExtra("list", imageUrlList)
                     intent.putExtra("word", word)
-                    startActivity(intent)
+
+                    val fragment = ResultFragment.newInstance()
+                    val fragmentManager = supportFragmentManager
+                    val bundle = Bundle()
+                    bundle.putStringArrayList("imageUrlList",imageUrlList)
+                    fragment.arguments = bundle
+
+                    fragmentManager.beginTransaction().replace(R.id.detailContainer, fragment).commit()
                 }
 
             }
