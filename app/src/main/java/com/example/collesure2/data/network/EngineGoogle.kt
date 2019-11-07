@@ -4,14 +4,12 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.regex.Pattern
 
-class EngineGoogle:SearchEngine {
+class EngineGoogle : SearchEngine {
     override fun SearchImage(word: String, nsfw: Boolean): ArrayList<String> {
-        val imageUrlList = ParseHtml(getHtml(word))
-        return imageUrlList
+        return ParseHtml(getHtml(word,nsfw))
     }
 
-    fun ParseHtml(html_txt:String):ArrayList<String>
-    {
+    private fun ParseHtml(html_txt: String): ArrayList<String> {
         val regex = "<img.+?src=\"(.+?)\".+?>"
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(html_txt)
@@ -22,9 +20,15 @@ class EngineGoogle:SearchEngine {
         return imageUrlList
     }
 
-    fun getHtml(word: String): String {
+    private fun getHtml(word: String,nsfw:Boolean): String {
         val client = OkHttpClient()
-        val req = Request.Builder().url("http://www.google.com/search?q=${word}&tbm=isch")
+        var url = "http://www.google.com/search?q=${word}&tbm=isch"
+        when(nsfw) {
+            true -> url += "&safe=off"
+            false -> url+="&safe=active"
+        }
+
+        val req = Request.Builder().url(url)
             .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)").get().build()
         val resp = client.newCall(req).execute()
         return resp.body!!.string()
