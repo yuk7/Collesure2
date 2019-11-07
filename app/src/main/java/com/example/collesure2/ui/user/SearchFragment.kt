@@ -15,10 +15,13 @@ import kotlinx.android.synthetic.main.fragment_search.*
 class SearchFragment : Fragment() {
 
     var word = ""
+    var nsfw = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         super.onCreate(savedInstanceState)
+
+
 
         searchButton.setOnClickListener {
             word = searchWord.text.toString()
@@ -30,7 +33,11 @@ class SearchFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putStringArrayList("imageUrlList", result)
                     recyclerFragment.arguments = bundle
-                    fragmentManager!!.beginTransaction().replace(R.id.fragment, recyclerFragment).commit()
+               val transaction = fragmentManager!!.beginTransaction().apply {
+                   replace(R.id.fragment,recyclerFragment)
+                   addToBackStack(null)
+               }
+                    transaction.commit()
                 }
             }.execute()
         }
@@ -39,7 +46,7 @@ class SearchFragment : Fragment() {
     open inner class MyAsyncTask : AsyncTask<Void, Void, ArrayList<String>>() {
         override fun doInBackground(vararg p0: Void?): ArrayList<String> {
             val engine: SearchEngine = EngineGoogle()
-            return engine.SearchImage(word, false)
+            return engine.searchImage(word, nsfw)
         }
     }
 
