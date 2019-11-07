@@ -47,7 +47,12 @@ class SearchFragment : Fragment() {
     open inner class MyAsyncTask : AsyncTask<Void, Void, ArrayList<String>>() {
         override fun doInBackground(vararg p0: Void?): ArrayList<String> {
             val engine: SearchEngine = EngineGoogle()
-            return engine.SearchImage(word, nsfw)
+            val imageUrlList = arrayListOf<String>()
+            for(page in 0..2)
+            {
+                imageUrlList.addAll(engine.SearchImage(word,page,nsfw))
+            }
+            return imageUrlList
         }
     }
 
