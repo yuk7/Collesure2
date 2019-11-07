@@ -5,8 +5,8 @@ import okhttp3.Request
 import java.util.regex.Pattern
 
 class EngineGoogle : SearchEngine {
-    override fun SearchImage(word: String, nsfw: Boolean): ArrayList<String> {
-        return ParseHtml(getHtml(word,nsfw))
+    override fun SearchImage(word: String, page:Int, nsfw: Boolean): ArrayList<String> {
+        return ParseHtml(getHtml(word,page,nsfw))
     }
 
     private fun ParseHtml(html_txt: String): ArrayList<String> {
@@ -20,13 +20,14 @@ class EngineGoogle : SearchEngine {
         return imageUrlList
     }
 
-    private fun getHtml(word: String,nsfw:Boolean): String {
+    private fun getHtml(word: String, page:Int, nsfw:Boolean): String {
         val client = OkHttpClient()
         var url = "http://www.google.com/search?q=${word}&tbm=isch"
         when(nsfw) {
             true -> url += "&safe=off"
             false -> url+="&safe=active"
         }
+        url += "&start="+(page*20)
 
         val req = Request.Builder().url(url)
             .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)").get().build()
