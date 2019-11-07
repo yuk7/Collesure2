@@ -23,9 +23,9 @@ class RecyclerAdapter(private val context: Context, private val imageUrlList: Li
         return imageUrlList.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Glide.with(context)
-            .load(imageUrlList.get(position))
+            .load(imageUrlList[position])
             .into(holder.itemView.item_iv)
     }
 
