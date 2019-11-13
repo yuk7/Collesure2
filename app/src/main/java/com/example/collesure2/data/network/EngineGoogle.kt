@@ -3,6 +3,9 @@ package com.example.collesure2.data.network
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.regex.Pattern
+import okhttp3.HttpUrl
+
+
 
 class EngineGoogle : SearchEngine {
     override fun SearchImage(word: String, page:Int, nsfw: Boolean): ArrayList<String> {
@@ -22,14 +25,20 @@ class EngineGoogle : SearchEngine {
 
     private fun getHtml(word: String, page:Int, nsfw:Boolean): String {
         val client = OkHttpClient()
-        var url = "http://www.google.com/search?q=${word}&tbm=isch"
-        when(nsfw) {
-            true -> url += "&safe=off"
-            false -> url+="&safe=active"
-        }
-        url += "&start="+(page*20)
+        var urlbuilder = HttpUrl.Builder()
+            .scheme("http")
+            .host("www.google.com")
+            .addPathSegment("search")
+            .addQueryParameter("q", word)
+            .addQueryParameter("tbm","isch")
+            .addQueryParameter("start",(page*20).toString())
 
-        val req = Request.Builder().url(url)
+        when(nsfw) {
+            true -> urlbuilder.addQueryParameter("safe","off")
+            false -> urlbuilder.addEncodedQueryParameter("safe","active")
+        }
+
+        val req = Request.Builder().url(urlbuilder.build())
             .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)").get().build()
         val resp = client.newCall(req).execute()
         return resp.body!!.string()
