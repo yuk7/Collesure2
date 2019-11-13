@@ -50,7 +50,7 @@ class SearchFragment : Fragment() {
 
             val imageUrlList = arrayListOf<String>()
             for (page in 0..2) {
-                imageUrlList.addAll(engine.SearchImage(word, page, nsfw))
+                imageUrlList.addAll(engine.searchImage(word, page, nsfw))
             }
             return imageUrlList
         }

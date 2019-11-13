@@ -7,7 +7,7 @@ import okhttp3.HttpUrl
 
 
 class EngineGoogle : SearchEngine {
-    override fun SearchImage(word: String, page: Int, nsfw: Boolean): ArrayList<String> {
+    override fun searchImage(word: String, page: Int, nsfw: Boolean): ArrayList<String> {
         return parseHtml(getHtml(word, page, nsfw))
     }
 
