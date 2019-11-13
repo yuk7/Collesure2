@@ -6,7 +6,7 @@ import com.example.collesure2.ui.setting.SettingFragment
 import com.example.collesure2.ui.user.SearchFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class Controller (val fm:FragmentManager){ //bottom naviation view用
+class Controller(private val fm: FragmentManager) { //bottom navigation view用
 
     val navigationListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         //clear BackStack

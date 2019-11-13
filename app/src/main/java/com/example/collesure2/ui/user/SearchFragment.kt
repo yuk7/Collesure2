@@ -34,10 +34,10 @@ class SearchFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putStringArrayList("imageUrlList", result)
                     recyclerFragment.arguments = bundle
-               val transaction = fragmentManager!!.beginTransaction().apply {
-                   replace(R.id.fragment,recyclerFragment)
-                   addToBackStack(null)
-               }
+                    val transaction = fragmentManager!!.beginTransaction().apply {
+                        replace(R.id.fragment, recyclerFragment)
+                        addToBackStack(null)
+                    }
                     transaction.commit()
                 }
             }.execute()
@@ -49,9 +49,8 @@ class SearchFragment : Fragment() {
             val engine: SearchEngine = EngineGoogle()
 
             val imageUrlList = arrayListOf<String>()
-            for(page in 0..2)
-            {
-                imageUrlList.addAll(engine.SearchImage(word,page,nsfw))
+            for (page in 0..2) {
+                imageUrlList.addAll(engine.SearchImage(word, page, nsfw))
             }
             return imageUrlList
         }
