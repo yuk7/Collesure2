@@ -1,6 +1,5 @@
 package com.example.collesure2.ui.user
 
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,10 @@ import com.example.collesure2.data.network.EngineGoogle
 import com.example.collesure2.data.network.SearchEngine
 import com.example.collesure2.ui.list.RecyclerFragment
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
 
@@ -26,34 +29,36 @@ class SearchFragment : Fragment() {
         searchButton.setOnClickListener {
             word = searchWord.text.toString()
             nsfw = switch_nsfw.isChecked
-            object : MyAsyncTask() {
-                override fun onPostExecute(result: ArrayList<String>) {
-                    super.onPostExecute(result)
-                    val recyclerFragment = RecyclerFragment()
-                    val fragmentManager = fragmentManager
-                    val bundle = Bundle()
-                    bundle.putStringArrayList("imageUrlList", result)
-                    recyclerFragment.arguments = bundle
-                    val transaction = fragmentManager!!.beginTransaction().apply {
-                        replace(R.id.fragment, recyclerFragment)
-                        addToBackStack(null)
-                    }
-                    transaction.commit()
+            
+            GlobalScope.launch(Dispatchers.Main) {
+                async(Dispatchers.Default){
+                    getMoreImageList(EngineGoogle(), word, nsfw)
+                }.await().let {
+                    showResultFragment(it)
                 }
-            }.execute()
+            }
         }
     }
 
-    open inner class MyAsyncTask : AsyncTask<Void, Void, ArrayList<String>>() {
-        override fun doInBackground(vararg p0: Void?): ArrayList<String> {
-            val engine: SearchEngine = EngineGoogle()
-
-            val imageUrlList = arrayListOf<String>()
-            for (page in 0..2) {
-                imageUrlList.addAll(engine.searchImage(word, page, nsfw))
-            }
-            return imageUrlList
+    fun showResultFragment(imageUrlList:ArrayList<String>){
+        val recyclerFragment = RecyclerFragment()
+        val fragmentManager = fragmentManager
+        val bundle = Bundle()
+        bundle.putStringArrayList("imageUrlList", imageUrlList)
+        recyclerFragment.arguments = bundle
+        val transaction = fragmentManager!!.beginTransaction().apply {
+            replace(R.id.fragment, recyclerFragment)
+            addToBackStack(null)
         }
+        transaction.commit()
+    }
+
+    fun getMoreImageList(engine:SearchEngine, word:String, nsfw:Boolean):ArrayList<String> {
+        val imageUrlList = arrayListOf<String>()
+        for (page in 0..2) {
+            imageUrlList.addAll(engine.searchImage(word, page, nsfw))
+        }
+        return imageUrlList
     }
 
     override fun onCreateView(
