@@ -34,7 +34,7 @@ class EngineGoogle : SearchEngine {
 
         when (nsfw) {
             true -> urlbuilder.addQueryParameter("safe", "off")
-            false -> urlbuilder.addEncodedQueryParameter("safe", "active")
+            false -> urlbuilder.addQueryParameter("safe", "active")
         }
 
         val req = Request.Builder().url(urlbuilder.build())
