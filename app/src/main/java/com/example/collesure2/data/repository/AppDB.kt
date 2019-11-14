@@ -17,13 +17,13 @@ abstract class AppDB: RoomDatabase(){
     companion object {
         private var instance:AppDB? = null
 
-        fun getInstance(context: Context):AppDB? {
+        fun getInstance(context: Context):AppDB {
             if(instance == null){
                 synchronized(AppDB::class){
                     instance = Room.databaseBuilder(context.applicationContext,AppDB::class.java,"data").build()
                 }
             }
-            return instance
+            return instance!!
         }
 
         fun destoroyInstance(){

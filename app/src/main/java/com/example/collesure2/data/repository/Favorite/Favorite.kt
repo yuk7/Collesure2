@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 class Favorite {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
     @ColumnInfo(name = "thumbIUrl")
