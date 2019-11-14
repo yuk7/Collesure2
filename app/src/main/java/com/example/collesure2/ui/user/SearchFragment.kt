@@ -53,7 +53,7 @@ class SearchFragment : Fragment() {
         transaction.commit()
     }
 
-    fun getMoreImageList(engine:SearchEngine, word:String, nsfw:Boolean):ArrayList<String> {
+    suspend fun getMoreImageList(engine:SearchEngine, word:String, nsfw:Boolean):ArrayList<String> {
         val imageUrlList = arrayListOf<String>()
         for (page in 0..2) {
             imageUrlList.addAll(engine.searchImage(word, page, nsfw))
