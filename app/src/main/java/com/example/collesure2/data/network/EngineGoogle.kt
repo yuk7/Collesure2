@@ -8,30 +8,52 @@ import okhttp3.HttpUrl
 
 
 class EngineGoogle : SearchEngine {
-    override fun searchImage(word: String, page: Int, nsfw: Boolean): ArrayList<ImageItem> {
-        val urlList = parseHtml(getHtml(word, page, nsfw))
+    override fun searchImage(word: String, start:Int, end:Int, nsfw: Boolean): ArrayList<ImageItem> {
+        var jsons = parseHtml(getHtml(word, nsfw))
         var items = arrayListOf<ImageItem>()
-        for(url in urlList) {
-            var item = ImageItem()
-            item.imageUrl = url
-            item.thumbIUrl = url
-            items.add(item)
+        for(json in jsons)
+        {
+            items.add(parseJson(json))
         }
         return items
     }
 
-    private fun parseHtml(html_txt: String): ArrayList<String> {
-        val regex = "<img.+?src=\"(.+?)\".+?>"
-        val pattern = Pattern.compile(regex)
-        val matcher = pattern.matcher(html_txt)
-        val imageUrlList = arrayListOf<String>()
-        while (matcher.find()) {
-            imageUrlList.add(matcher.group(1))
+    private fun parseJson(json_txt: String):ImageItem {
+        val regex_orig = "\"ou\":\"(.+?)\""
+        val regex_thumb = "\"tu\":\"(.+?)\""
+        val regex_url = "\"ru\":\"(.+?)\""
+        val matcher_orig = Pattern.compile(regex_orig).matcher(json_txt)
+        val matcher_thumb = Pattern.compile(regex_thumb).matcher(json_txt)
+        val matcher_url = Pattern.compile(regex_url).matcher(json_txt)
+
+        var item = ImageItem()
+        if(matcher_orig.find()){
+            item.imageUrl = matcher_orig.group(1)!!
         }
-        return imageUrlList
+        if(matcher_thumb.find()){
+            var thumbUrl = matcher_thumb.group(1)!!
+            thumbUrl = thumbUrl.replace("\\u003d","=")
+            thumbUrl = thumbUrl.replace("\\u0026s","")
+            item.thumbIUrl = thumbUrl
+        }
+        if(matcher_url.find()){
+            item.url = matcher_url.group(1)!!
+        }
+        return item
     }
 
-    private fun getHtml(word: String, page: Int, nsfw: Boolean): String {
+    private fun parseHtml(html_txt: String): ArrayList<String> {
+        val regex = "<div class=\"rg_meta notranslate\">(.+?)</div>"
+        val pattern = Pattern.compile(regex)
+        val matcher = pattern.matcher(html_txt)
+        val imageJsonList = arrayListOf<String>()
+        while (matcher.find()) {
+            imageJsonList.add(matcher.group(1)!!)
+        }
+        return imageJsonList
+    }
+
+    private fun getHtml(word: String, nsfw: Boolean): String {
         val client = OkHttpClient()
         var urlbuilder = HttpUrl.Builder()
             .scheme("http")
@@ -39,7 +61,6 @@ class EngineGoogle : SearchEngine {
             .addPathSegment("search")
             .addQueryParameter("q", word)
             .addQueryParameter("tbm", "isch")
-            .addQueryParameter("start", (page * 20).toString())
 
         when (nsfw) {
             true -> urlbuilder.addQueryParameter("safe", "off")
@@ -47,7 +68,7 @@ class EngineGoogle : SearchEngine {
         }
 
         val req = Request.Builder().url(urlbuilder.build())
-            .header("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows 98)").get().build()
+            .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36").get().build()
         val resp = client.newCall(req).execute()
         return resp.body!!.string()
     }

@@ -30,10 +30,11 @@ class SearchFragment : Fragment() {
         searchButton.setOnClickListener {
             word = searchWord.text.toString()
             nsfw = switch_nsfw.isChecked
+            val engine = EngineGoogle()
             
             GlobalScope.launch(Dispatchers.Main) {
                 async(Dispatchers.Default){
-                    getMoreImageList(EngineGoogle(), word, nsfw)
+                    engine.searchImage(word,0,0,nsfw)
                 }.await().let {
                     showResultFragment(it)
                 }
@@ -54,13 +55,6 @@ class SearchFragment : Fragment() {
         transaction.commit()
     }
 
-    suspend fun getMoreImageList(engine:SearchEngine, word:String, nsfw:Boolean):ArrayList<ImageItem> {
-        val imageList = arrayListOf<ImageItem>()
-        for (page in 0..2) {
-            imageList.addAll(engine.searchImage(word, page, nsfw))
-        }
-        return imageList
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
