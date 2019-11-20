@@ -34,7 +34,7 @@ class SearchFragment : Fragment() {
             
             GlobalScope.launch(Dispatchers.Main) {
                 async(Dispatchers.Default){
-                    engine.searchImage(word,0,0,nsfw)
+                    engine.searchImage(word,0,50,nsfw)
                 }.await().let {
                     showResultFragment(it)
                 }

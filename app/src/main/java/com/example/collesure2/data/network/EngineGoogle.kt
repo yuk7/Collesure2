@@ -8,11 +8,20 @@ import okhttp3.HttpUrl
 
 
 class EngineGoogle : SearchEngine {
-    override fun searchImage(word: String, start:Int, end:Int, nsfw: Boolean): ArrayList<ImageItem> {
+    override fun searchImage(word: String, start: Int, count: Int, nsfw: Boolean): ArrayList<ImageItem> {
+        val allItems = searchAllImage(word, nsfw)
+        var items = arrayListOf<ImageItem>()
+
+        if(start < allItems.size) {
+            items.addAll(allItems.subList(start, count))
+        }
+        return items
+    }
+
+    private fun searchAllImage(word: String, nsfw: Boolean): ArrayList<ImageItem> {
         var jsons = parseHtml(getHtml(word, nsfw))
         var items = arrayListOf<ImageItem>()
-        for(json in jsons)
-        {
+        for (json in jsons) {
             items.add(parseJson(json))
         }
         return items
