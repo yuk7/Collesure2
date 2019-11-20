@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collesure2.R
-
+import com.example.collesure2.data.ImageItem
 
 
 class RecyclerFragment : Fragment() {
@@ -25,12 +25,12 @@ class RecyclerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val bundle = arguments
-        val imageUrlList = bundle!!.get("imageUrlList") as List<String>
+        val imageList = bundle!!.get("imageList") as List<ImageItem>
 
         val recycler = view.findViewById<RecyclerView>(R.id.recyclerview).apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 2)
-            adapter = RecyclerAdapter(context, imageUrlList)
+            adapter = RecyclerAdapter(context, imageList)
         }
     }
 

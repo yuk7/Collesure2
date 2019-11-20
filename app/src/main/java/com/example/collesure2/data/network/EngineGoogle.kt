@@ -1,5 +1,6 @@
 package com.example.collesure2.data.network
 
+import com.example.collesure2.data.ImageItem
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.util.regex.Pattern
@@ -7,8 +8,16 @@ import okhttp3.HttpUrl
 
 
 class EngineGoogle : SearchEngine {
-    override fun searchImage(word: String, page: Int, nsfw: Boolean): ArrayList<String> {
-        return parseHtml(getHtml(word, page, nsfw))
+    override fun searchImage(word: String, page: Int, nsfw: Boolean): ArrayList<ImageItem> {
+        val urlList = parseHtml(getHtml(word, page, nsfw))
+        var items = arrayListOf<ImageItem>()
+        for(url in urlList) {
+            var item = ImageItem()
+            item.imageUrl = url
+            item.thumbIUrl = url
+            items.add(item)
+        }
+        return items
     }
 
     private fun parseHtml(html_txt: String): ArrayList<String> {

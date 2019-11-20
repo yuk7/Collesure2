@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.collesure2.R
+import com.example.collesure2.data.ImageItem
 import com.example.collesure2.data.network.EngineGoogle
 import com.example.collesure2.data.network.SearchEngine
 import com.example.collesure2.ui.list.RecyclerFragment
@@ -40,11 +41,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun showResultFragment(imageUrlList:ArrayList<String>){
+    fun showResultFragment(imageList:ArrayList<ImageItem>){
         val recyclerFragment = RecyclerFragment()
         val fragmentManager = fragmentManager
         val bundle = Bundle()
-        bundle.putStringArrayList("imageUrlList", imageUrlList)
+        bundle.putSerializable("imageList", imageList)
         recyclerFragment.arguments = bundle
         val transaction = fragmentManager!!.beginTransaction().apply {
             replace(R.id.fragment, recyclerFragment)
@@ -53,12 +54,12 @@ class SearchFragment : Fragment() {
         transaction.commit()
     }
 
-    suspend fun getMoreImageList(engine:SearchEngine, word:String, nsfw:Boolean):ArrayList<String> {
-        val imageUrlList = arrayListOf<String>()
+    suspend fun getMoreImageList(engine:SearchEngine, word:String, nsfw:Boolean):ArrayList<ImageItem> {
+        val imageList = arrayListOf<ImageItem>()
         for (page in 0..2) {
-            imageUrlList.addAll(engine.searchImage(word, page, nsfw))
+            imageList.addAll(engine.searchImage(word, page, nsfw))
         }
-        return imageUrlList
+        return imageList
     }
 
     override fun onCreateView(
