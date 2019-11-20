@@ -37,18 +37,26 @@ class EngineGoogle : SearchEngine {
 
         var item = ImageItem()
         if(matcher_orig.find()){
-            item.imageUrl = matcher_orig.group(1)!!
+            item.imageUrl = urlDeEscape(matcher_orig.group(1)!!)
         }
         if(matcher_thumb.find()){
-            var thumbUrl = matcher_thumb.group(1)!!
-            thumbUrl = thumbUrl.replace("\\u003d","=")
-            thumbUrl = thumbUrl.replace("\\u0026s","")
+            var thumbUrl = urlDeEscape(matcher_thumb.group(1)!!)
             item.thumbIUrl = thumbUrl
         }
         if(matcher_url.find()){
-            item.url = matcher_url.group(1)!!
+            item.url = urlDeEscape(matcher_url.group(1)!!)
         }
         return item
+    }
+
+    private fun urlDeEscape(urlStr: String):String {
+        var result = urlStr
+        result = result.replace("\\u003d","=")
+        result = result.replace("\\u0026","&")
+        result = result.replace("\\u003c","<")
+        result = result.replace("\\u003e",">")
+
+        return result
     }
 
     private fun parseHtml(html_txt: String): ArrayList<String> {
