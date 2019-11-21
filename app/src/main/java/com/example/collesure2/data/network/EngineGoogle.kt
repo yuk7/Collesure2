@@ -12,8 +12,12 @@ class EngineGoogle : SearchEngine {
         val allItems = searchAllImage(word, nsfw)
         var items = arrayListOf<ImageItem>()
 
-        if(start < allItems.size) {
-            items.addAll(allItems.subList(start, count))
+        if(start <= allItems.size) {
+            var indexTo = start + count
+            if(indexTo >= allItems.size){
+                indexTo = allItems.size - start
+            }
+            items.addAll(allItems.subList(0, indexTo))
         }
         return items
     }
