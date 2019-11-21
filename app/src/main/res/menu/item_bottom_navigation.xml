@@ -3,23 +3,23 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@android:drawable/ic_btn_speak_now"
+        android:icon="@drawable/ic_home_black_24dp"
         android:title="ホーム" />
 
     <item
         android:id="@+id/favorite"
-        android:icon="@android:drawable/ic_delete"
+        android:icon="@drawable/ic_favorite_black_24dp"
         android:title="お気に入り" />
 
     <item
         android:id="@+id/history"
-        android:icon="@android:drawable/ic_dialog_alert"
+        android:icon="@drawable/ic_history_black_24dp"
         android:title="履歴" />
 
 
     <item
         android:id="@+id/others"
-        android:icon="@android:drawable/ic_dialog_alert"
+        android:icon="@drawable/ic_settings_black_24dp"
         android:title="その他" />
 
 </menu>
