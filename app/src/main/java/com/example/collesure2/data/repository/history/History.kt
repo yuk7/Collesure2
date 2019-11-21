@@ -9,9 +9,6 @@ class History {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
-    @ColumnInfo(name = "count")
-    var count: Int = 0
-
     @ColumnInfo(name = "word")
     var word: String = ""
 

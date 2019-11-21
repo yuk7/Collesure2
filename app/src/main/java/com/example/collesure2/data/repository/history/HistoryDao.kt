@@ -13,9 +13,6 @@ interface HistoryDao {
     @Query("SELECT * FROM history WHERE id = :id LIMIT 1")
     fun findById(id: Int): History
 
-    @Query("UPDATE history SET count = :count WHERE id = :id")
-    fun updateCount(id: Int, count: Int)
-
     @Insert
     fun insert(history: History)
 
@@ -23,5 +20,5 @@ interface HistoryDao {
     fun delete(history: History)
 
     @Query("DELETE FROM history")
-    fun deleteall()
+    fun deleteAll()
 }

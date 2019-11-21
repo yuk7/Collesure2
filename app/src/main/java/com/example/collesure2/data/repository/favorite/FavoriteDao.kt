@@ -11,10 +11,13 @@ interface FavoriteDao {
     fun getAll(): List<Favorite>
 
     @Query("SELECT * FROM favorite WHERE id = :id LIMIT 1")
-    fun findById(id: Int): Favorite
+    fun findById(id: Int): Favorite?
 
-    @Query("SELECT * FROM favorite WHERE thumbIUrl = :thumbIUrl")
-    fun findByThumbUrl(thumbIUrl: String): List<Favorite>
+    @Query("SELECT * FROM favorite WHERE ThumbIUrl = :thumbIUrl LIMIT 1")
+    fun findByThumbUrl(thumbIUrl: String): Favorite?
+
+    @Query("SELECT * FROM favorite WHERE ImageUrl = :imageUrl LIMIT 1")
+    fun findByImageUrl(imageUrl: String): Favorite?
 
     @Insert
     fun insert(favorite: Favorite)
@@ -23,5 +26,5 @@ interface FavoriteDao {
     fun delete(favorite: Favorite)
 
     @Query("DELETE FROM favorite")
-    fun deleteall()
+    fun deleteAll()
 }
