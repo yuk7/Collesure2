@@ -9,24 +9,26 @@ import com.example.collesure2.data.repository.favorite.FavoriteDao
 import com.example.collesure2.data.repository.history.History
 import com.example.collesure2.data.repository.history.HistoryDao
 
-@Database(entities = [Favorite::class,History::class], version = 1)
-abstract class AppDB: RoomDatabase(){
+@Database(entities = [Favorite::class, History::class], version = 1)
+abstract class AppDB : RoomDatabase() {
     abstract fun favoriteDao(): FavoriteDao
     abstract fun historyDao(): HistoryDao
 
     companion object {
-        private var instance:AppDB? = null
+        private var instance: AppDB? = null
 
-        fun getInstance(context: Context):AppDB {
-            if(instance == null){
-                synchronized(AppDB::class){
-                    instance = Room.databaseBuilder(context.applicationContext,AppDB::class.java,"data").build()
+        fun getInstance(context: Context): AppDB {
+            if (instance == null) {
+                synchronized(AppDB::class) {
+                    instance =
+                        Room.databaseBuilder(context.applicationContext, AppDB::class.java, "data")
+                            .build()
                 }
             }
             return instance!!
         }
 
-        fun destoroyInstance(){
+        fun destoroyInstance() {
             instance = null
         }
     }

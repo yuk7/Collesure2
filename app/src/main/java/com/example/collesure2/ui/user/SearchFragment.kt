@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
 import com.example.collesure2.data.network.EngineGoogle
-import com.example.collesure2.data.network.SearchEngine
 import com.example.collesure2.ui.list.RecyclerFragment
 import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.Dispatchers
@@ -31,10 +30,10 @@ class SearchFragment : Fragment() {
             word = searchWord.text.toString()
             nsfw = switch_nsfw.isChecked
             val engine = EngineGoogle()
-            
+
             GlobalScope.launch(Dispatchers.Main) {
-                async(Dispatchers.Default){
-                    engine.searchImage(word,0,50,nsfw)
+                async(Dispatchers.Default) {
+                    engine.searchImage(word, 0, 50, nsfw)
                 }.await().let {
                     showResultFragment(it)
                 }
@@ -42,7 +41,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun showResultFragment(imageList:ArrayList<ImageItem>){
+    fun showResultFragment(imageList: ArrayList<ImageItem>) {
         val recyclerFragment = RecyclerFragment()
         val fragmentManager = fragmentManager
         val bundle = Bundle()
