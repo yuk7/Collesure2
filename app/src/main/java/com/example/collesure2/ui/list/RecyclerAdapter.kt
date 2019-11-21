@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.collesure2.R
+import com.example.collesure2.data.ImageItem
 import kotlinx.android.synthetic.main.item.view.*
 
-class RecyclerAdapter(private val context: Context, private val imageUrlList: List<String>) :
+class RecyclerAdapter(private val context: Context, private val imageList: List<ImageItem>) :
     RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -20,12 +21,12 @@ class RecyclerAdapter(private val context: Context, private val imageUrlList: Li
     }
 
     override fun getItemCount(): Int {
-        return imageUrlList.size
+        return imageList.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Glide.with(context)
-            .load(imageUrlList[position])
+            .load(imageList[position].thumbIUrl)
             .into(holder.itemView.item_iv)
     }
 
