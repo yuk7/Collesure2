@@ -22,6 +22,9 @@ interface FavoriteDao {
     @Insert
     fun insert(favorite: Favorite)
 
+    @Query("DELETE FROM favorite WHERE imageurl = :imageUrl")
+    fun deleteByImageUrl(imageUrl: String)
+
     @Delete
     fun delete(favorite: Favorite)
 
