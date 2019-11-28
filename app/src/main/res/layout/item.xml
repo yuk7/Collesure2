@@ -23,5 +23,5 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_favorite_border_white_24dp" />
+        app:srcCompat="@drawable/ic_favorite_border_gray_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

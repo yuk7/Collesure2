@@ -49,9 +49,9 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
                 db.favoriteDao().findByImageUrl(imageList[position].imageUrl)
             }.await().let {
                 if(it == null) {
-                    holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_border_white_24dp)
+                    holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_border_gray_24dp)
                 } else {
-                    holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_white_24dp)
+                    holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_pink_24dp)
                 }
             }
         }
@@ -63,10 +63,10 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
                     val favitem = db.favoriteDao().findByImageUrl(imageList[position].imageUrl)
                     if(favitem == null) {
                         db.favoriteDao().insert(imageList[position])
-                        holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_white_24dp)
+                        holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_pink_24dp)
                     } else {
-                        db.favoriteDao().insert(imageList[position])
-                        holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_border_white_24dp)
+                        db.favoriteDao().deleteByImageUrl(imageList[position].imageUrl)
+                        holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_border_gray_24dp)
                     }
                 }
             }
