@@ -13,5 +13,8 @@ class History {
     var word: String = ""
 
     @ColumnInfo(name = "engine")
-    var engine: String = ""
+    var engine: Int = 0
+
+    @ColumnInfo(name = "nsfw")
+    var nsfw: Boolean = true
 }

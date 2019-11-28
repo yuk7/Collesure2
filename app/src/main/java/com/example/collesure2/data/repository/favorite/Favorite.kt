@@ -9,12 +9,12 @@ open class Favorite {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 
-    @ColumnInfo(name = "ThumbIUrl")
+    @ColumnInfo(name = "thumburl")
     var thumbIUrl: String = ""
 
-    @ColumnInfo(name = "ImageUrl")
+    @ColumnInfo(name = "imageurl")
     var imageUrl: String = ""
 
-    @ColumnInfo(name = "Url")
+    @ColumnInfo(name = "url")
     var url: String = ""
 }
