@@ -28,7 +28,7 @@ class SearchFragment : Fragment() {
 
         searchButton.setOnClickListener {
             word = searchWord.text.toString()
-            nsfw = switch_nsfw.isChecked
+            nsfw = !switch_safe.isChecked
             val engine = EngineGoogle()
 
             GlobalScope.launch(Dispatchers.Main) {
