@@ -13,10 +13,10 @@ interface FavoriteDao {
     @Query("SELECT * FROM favorite WHERE id = :id LIMIT 1")
     fun findById(id: Int): Favorite?
 
-    @Query("SELECT * FROM favorite WHERE ThumbIUrl = :thumbIUrl LIMIT 1")
+    @Query("SELECT * FROM favorite WHERE thumburl = :thumbIUrl LIMIT 1")
     fun findByThumbUrl(thumbIUrl: String): Favorite?
 
-    @Query("SELECT * FROM favorite WHERE ImageUrl = :imageUrl LIMIT 1")
+    @Query("SELECT * FROM favorite WHERE imageurl = :imageUrl LIMIT 1")
     fun findByImageUrl(imageUrl: String): Favorite?
 
     @Insert
