@@ -10,6 +10,7 @@ class ImageItem: Favorite(), Serializable {
             to.thumbIUrl = from.thumbIUrl
             to.imageUrl = from.imageUrl
             to.url = from.url
+            to.tag = from.tag
             return to
         }
     }

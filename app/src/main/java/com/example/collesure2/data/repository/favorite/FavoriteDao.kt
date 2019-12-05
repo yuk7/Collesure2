@@ -10,6 +10,9 @@ interface FavoriteDao {
     @Query("SELECT * FROM favorite")
     fun getAll(): List<Favorite>
 
+    @Query("SELECT * FROM favorite WHERE tag LIKE :query")
+    fun searchByTag(query: String): List<Favorite>
+
     @Query("SELECT * FROM favorite WHERE id = :id LIMIT 1")
     fun findById(id: Int): Favorite?
 

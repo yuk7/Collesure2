@@ -17,4 +17,7 @@ open class Favorite {
 
     @ColumnInfo(name = "url")
     var url: String = ""
+
+    @ColumnInfo(name = "tag")
+    var tag: String = ""
 }
