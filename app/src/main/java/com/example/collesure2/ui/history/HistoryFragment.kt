@@ -14,6 +14,6 @@ class HistoryFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return return inflater.inflate(R.layout.fragment_setting, container, false)
+        return return inflater.inflate(R.layout.fragment_recycler, container, false)
     }
 }
