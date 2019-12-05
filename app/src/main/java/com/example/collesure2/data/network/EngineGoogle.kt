@@ -31,7 +31,9 @@ class EngineGoogle : SearchEngine {
         var jsons = parseHtml(getHtml(word, nsfw))
         var items = arrayListOf<ImageItem>()
         for (json in jsons) {
-            items.add(parseJson(json))
+            var item = parseJson(json)
+            item.tag = word
+            items.add(item)
         }
         return items
     }
