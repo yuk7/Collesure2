@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
@@ -25,8 +26,14 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
+    private val circular = CircularProgressDrawable(context)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+        circular.strokeWidth = 8f
+        circular.centerRadius = 50f
+        circular.start()
+
         return MyViewHolder(view)
     }
 
@@ -37,6 +44,9 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         Glide.with(context)
             .load(imageList[position].thumbIUrl)
+            .placeholder(circular)
+            .error(Glide.with(context).load(imageList[position].imageUrl)
+                .error(R.drawable.ic_error_red_24dp))
             .into(holder.itemView.item_iv)
 
         holder.itemView.item_iv.setOnClickListener {
