@@ -10,8 +10,8 @@ import com.example.collesure2.data.ImageItem
 
 class PickActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
         val imageView = findViewById<ImageView>(R.id.pickUpImage)
         val item = intent.getSerializableExtra("item") as ImageItem

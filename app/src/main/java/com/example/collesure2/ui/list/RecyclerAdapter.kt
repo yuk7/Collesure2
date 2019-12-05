@@ -40,9 +40,9 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
             .into(holder.itemView.item_iv)
 
         holder.itemView.item_iv.setOnClickListener {
-            val intent = Intent(,PickActivity::class.java)
+            val intent = Intent(it.context,PickActivity::class.java)
             intent.putExtra("item",imageList[position])
-            context.startActivity(intent)
+            it.context.startActivity(intent)
         }
 
         GlobalScope.launch(Dispatchers.Main) {
