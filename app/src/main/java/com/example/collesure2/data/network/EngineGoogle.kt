@@ -8,13 +8,18 @@ import okhttp3.HttpUrl
 
 
 class EngineGoogle : SearchEngine {
-    override fun searchImage(word: String, start: Int, count: Int, nsfw: Boolean): ArrayList<ImageItem> {
+    override fun searchImage(
+        word: String,
+        start: Int,
+        count: Int,
+        nsfw: Boolean
+    ): ArrayList<ImageItem> {
         val allItems = searchAllImage(word, nsfw)
         var items = arrayListOf<ImageItem>()
 
-        if(start <= allItems.size) {
+        if (start <= allItems.size) {
             var indexTo = start + count
-            if(indexTo >= allItems.size){
+            if (indexTo >= allItems.size) {
                 indexTo = allItems.size - start
             }
             items.addAll(allItems.subList(0, indexTo))
@@ -31,7 +36,7 @@ class EngineGoogle : SearchEngine {
         return items
     }
 
-    private fun parseJson(json_txt: String):ImageItem {
+    private fun parseJson(json_txt: String): ImageItem {
         val regex_orig = "\"ou\":\"(.+?)\""
         val regex_thumb = "\"tu\":\"(.+?)\""
         val regex_url = "\"ru\":\"(.+?)\""
@@ -40,25 +45,25 @@ class EngineGoogle : SearchEngine {
         val matcher_url = Pattern.compile(regex_url).matcher(json_txt)
 
         var item = ImageItem()
-        if(matcher_orig.find()){
+        if (matcher_orig.find()) {
             item.imageUrl = urlDeEscape(matcher_orig.group(1)!!)
         }
-        if(matcher_thumb.find()){
+        if (matcher_thumb.find()) {
             var thumbUrl = urlDeEscape(matcher_thumb.group(1)!!)
             item.thumbIUrl = thumbUrl
         }
-        if(matcher_url.find()){
+        if (matcher_url.find()) {
             item.url = urlDeEscape(matcher_url.group(1)!!)
         }
         return item
     }
 
-    private fun urlDeEscape(urlStr: String):String {
+    private fun urlDeEscape(urlStr: String): String {
         var result = urlStr
-        result = result.replace("\\u003d","=")
-        result = result.replace("\\u0026","&")
-        result = result.replace("\\u003c","<")
-        result = result.replace("\\u003e",">")
+        result = result.replace("\\u003d", "=")
+        result = result.replace("\\u0026", "&")
+        result = result.replace("\\u003c", "<")
+        result = result.replace("\\u003e", ">")
 
         return result
     }
@@ -89,7 +94,10 @@ class EngineGoogle : SearchEngine {
         }
 
         val req = Request.Builder().url(urlbuilder.build())
-            .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36").get().build()
+            .header(
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.134 Safari/537.36"
+            ).get().build()
         val resp = client.newCall(req).execute()
         return resp.body!!.string()
     }

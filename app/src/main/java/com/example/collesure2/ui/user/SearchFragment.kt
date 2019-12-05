@@ -41,7 +41,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun showResultFragment(imageList: ArrayList<ImageItem>) {
+    private fun showResultFragment(imageList: ArrayList<ImageItem>) {
         val recyclerFragment = RecyclerFragment()
         val fragmentManager = fragmentManager
         val bundle = Bundle()

@@ -1,6 +1,5 @@
 package com.example.collesure2.ui.favorite
 
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class FavoriteFragment : Fragment(){
+class FavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +43,8 @@ class FavoriteFragment : Fragment(){
                 val bundle = Bundle()
                 bundle.putSerializable("imageList", imageList)
                 recyclerFragment.arguments = bundle
-                fragmentManager!!.beginTransaction().replace(R.id.fragment, recyclerFragment).commit()
+                fragmentManager!!.beginTransaction().replace(R.id.fragment, recyclerFragment)
+                    .commit()
             }
         }
     }

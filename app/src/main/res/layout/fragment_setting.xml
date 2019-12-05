@@ -24,24 +24,28 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="アカウント設定" />
+            android:text="アカウント設定"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="SNS連携" />
+            android:text="SNS連携"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="ヘルプ" />
+            android:text="ヘルプ"
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="情報" />
+            android:text="情報"
+            android:textSize="30sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

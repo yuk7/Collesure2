@@ -16,8 +16,7 @@ class RecyclerFragment : Fragment() {
 
     companion object {
         fun newInstance(): RecyclerFragment {
-            val fragment = RecyclerFragment()
-            return fragment
+            return RecyclerFragment()
         }
     }
 

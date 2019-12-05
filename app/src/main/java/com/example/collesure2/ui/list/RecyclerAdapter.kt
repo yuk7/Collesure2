@@ -37,18 +37,18 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
             .load(imageList[position].thumbIUrl)
             .into(holder.itemView.item_iv)
 
-        holder.itemView.item_iv.setOnClickListener({
+        holder.itemView.item_iv.setOnClickListener {
             val uri = Uri.parse(imageList[position].imageUrl)
             val intent = Intent(Intent.ACTION_VIEW, uri)
             context.startActivity(intent)
-        })
+        }
 
         GlobalScope.launch(Dispatchers.Main) {
             async(Dispatchers.Default) {
                 val db = AppDB.getInstance(context)
                 db.favoriteDao().findByImageUrl(imageList[position].imageUrl)
             }.await().let {
-                if(it == null) {
+                if (it == null) {
                     holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_border_gray_24dp)
                 } else {
                     holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_pink_24dp)
@@ -61,7 +61,7 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
                 async(Dispatchers.Default) {
                     val db = AppDB.getInstance(context)
                     val favitem = db.favoriteDao().findByImageUrl(imageList[position].imageUrl)
-                    if(favitem == null) {
+                    if (favitem == null) {
                         db.favoriteDao().insert(imageList[position])
                         holder.itemView.favoriteButton.setImageResource(R.drawable.ic_favorite_pink_24dp)
                     } else {
