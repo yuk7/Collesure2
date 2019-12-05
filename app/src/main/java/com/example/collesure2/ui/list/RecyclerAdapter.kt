@@ -1,5 +1,6 @@
 package com.example.collesure2.ui.list
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
 import com.example.collesure2.data.repository.AppDB
+import com.example.collesure2.ui.pick.PickActivity
 import kotlinx.android.synthetic.main.item.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,8 +40,8 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
             .into(holder.itemView.item_iv)
 
         holder.itemView.item_iv.setOnClickListener {
-            val uri = Uri.parse(imageList[position].imageUrl)
-            val intent = Intent(Intent.ACTION_VIEW, uri)
+            val intent = Intent(context, PickActivity::class.java)
+            intent.putExtra("item",imageList[position])
             context.startActivity(intent)
         }
 
