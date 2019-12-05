@@ -9,6 +9,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
+import com.github.chrisbanes.photoview.PhotoView
 
 class PickActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class PickActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        val imageView = findViewById<ImageView>(R.id.pickUpImage)
+        val imageView = findViewById<PhotoView>(R.id.pickUpImage)
         val item = intent.getSerializableExtra("item") as ImageItem
 
         val circular = CircularProgressDrawable(this)
