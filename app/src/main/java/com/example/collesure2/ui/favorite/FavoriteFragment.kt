@@ -23,7 +23,7 @@ class FavoriteFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        return inflater.inflate(R.layout.layout_frame_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class FavoriteFragment : Fragment(){
         val bundle = Bundle()
         bundle.putSerializable("imageList", imageList)
         recyclerFragment.arguments = bundle
-        fragmentManager!!.beginTransaction().replace(R.id.favorite_view, recyclerFragment).commit()
+        fragmentManager!!.beginTransaction().replace(R.id.frame_view, recyclerFragment).commit()
 
     }
     private fun searchFavorite(word: String): ArrayList<ImageItem> {
