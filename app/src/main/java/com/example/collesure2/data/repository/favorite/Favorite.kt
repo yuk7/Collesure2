@@ -3,9 +3,10 @@ package com.example.collesure2.data.repository.favorite
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
-open class Favorite {
+open class Favorite: Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 

@@ -15,13 +15,13 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <ImageButton
-        android:id="@+id/favoriteButton"
+    <CheckBox
+        android:id="@+id/favoriteCheck"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:background="@null"
+        android:button="@null"
+        android:background="@drawable/selector_favorite"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_favorite_border_gray_24dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
