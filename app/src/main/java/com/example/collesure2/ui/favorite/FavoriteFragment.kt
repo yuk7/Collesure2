@@ -86,15 +86,18 @@ class FavoriteFragment : Fragment(){
         }
         imageList_past = imageList
     }
+
+    private var isAsc = false
+
     private fun searchFavorite(word: String): ArrayList<ImageItem> {
         var query = "%" + word.split(" ").joinToString(separator = "%") + "%"
 
         val db = AppDB.getInstance(context!!)
         var list: List<Favorite> = listOf<Favorite>()
-        if(query == "") {
-            list = db.favoriteDao().getAll()
+        if (word == "") {
+            list = db.favoriteDao().getAll(isAsc)
         } else {
-            list = db.favoriteDao().searchByTag(query)
+            list = db.favoriteDao().searchByTag(query, isAsc)
         }
 
         val imageList = arrayListOf<ImageItem>()

@@ -7,11 +7,11 @@ import androidx.room.Query
 
 @Dao
 interface FavoriteDao {
-    @Query("SELECT * FROM favorite")
-    fun getAll(): List<Favorite>
+    @Query("SELECT * FROM favorite ORDER BY CASE WHEN :isAsc = 1 THEN id END ASC, CASE WHEN :isAsc = 0 THEN id END DESC")
+    fun getAll(isAsc: Boolean): List<Favorite>
 
-    @Query("SELECT * FROM favorite WHERE tag LIKE :query")
-    fun searchByTag(query: String): List<Favorite>
+    @Query("SELECT * FROM favorite WHERE tag LIKE :query ORDER BY CASE WHEN :isAsc = 1 THEN id END ASC, CASE WHEN :isAsc = 0 THEN id END DESC")
+    fun searchByTag(query: String, isAsc: Boolean): List<Favorite>
 
     @Query("SELECT * FROM favorite WHERE id = :id LIMIT 1")
     fun findById(id: Int): Favorite?
