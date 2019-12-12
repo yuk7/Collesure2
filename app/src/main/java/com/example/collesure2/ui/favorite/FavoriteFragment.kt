@@ -51,7 +51,7 @@ class FavoriteFragment : Fragment(){
             override fun onQueryTextChange(text: String?): Boolean {
                 GlobalScope.launch(Dispatchers.Main) {
                     withContext(Dispatchers.Default) {
-                        searchFavorite(text!!?:"")
+                        searchFavorite(text!!)
                     }.let {
                         showRecycler(it)
                     }
@@ -61,14 +61,30 @@ class FavoriteFragment : Fragment(){
         })
     }
 
-    private fun showRecycler(imageList: ArrayList<ImageItem>) {
-        val recyclerFragment = RecyclerFragment()
-        val fragmentManager = fragmentManager
-        val bundle = Bundle()
-        bundle.putSerializable("imageList", imageList)
-        recyclerFragment.arguments = bundle
-        fragmentManager!!.beginTransaction().replace(R.id.frame_view, recyclerFragment).commit()
+    var imageList_past = arrayListOf<ImageItem>()
 
+    private fun showRecycler(imageList: ArrayList<ImageItem>) {
+        var refresh = false
+        if(imageList.count() != imageList_past.count()) {
+            refresh = true
+        } else {
+            for (i in 0 until imageList.count() - 1) {
+                if (imageList.get(i).id != imageList_past.get(i).id) {
+                    refresh = true
+                    break
+                }
+            }
+        }
+
+        if(refresh) {
+            val recyclerFragment = RecyclerFragment()
+            val fragmentManager = fragmentManager
+            val bundle = Bundle()
+            bundle.putSerializable("imageList", imageList)
+            recyclerFragment.arguments = bundle
+            fragmentManager!!.beginTransaction().replace(R.id.frame_view, recyclerFragment).commit()
+        }
+        imageList_past = imageList
     }
     private fun searchFavorite(word: String): ArrayList<ImageItem> {
         var query = "%" + word.split(" ").joinToString(separator = "%") + "%"
