@@ -21,13 +21,10 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
-    private val circular = CircularProgressDrawable(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
-        circular.strokeWidth = 8f
-        circular.centerRadius = 50f
-        circular.start()
+
 
         return MyViewHolder(view)
     }
@@ -37,6 +34,11 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val circular = CircularProgressDrawable(context)
+        circular.strokeWidth = 8f
+        circular.centerRadius = 50f
+        circular.start()
+
         Glide.with(context)
             .load(imageList[position].thumbIUrl)
             .placeholder(circular)
