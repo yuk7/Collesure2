@@ -1,9 +1,7 @@
 package com.example.collesure2.ui.pick
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.MenuItem
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -35,6 +33,7 @@ class PickActivity : AppCompatActivity() {
             .into(imageView)
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -44,5 +43,4 @@ class PickActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 }
