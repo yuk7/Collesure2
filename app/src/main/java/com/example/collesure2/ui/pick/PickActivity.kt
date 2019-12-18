@@ -15,7 +15,7 @@ import com.github.chrisbanes.photoview.PhotoView
 
 class PickActivity : AppCompatActivity() {
 
-    var imgItem = ImageItem()
+    private var imgItem = ImageItem()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
