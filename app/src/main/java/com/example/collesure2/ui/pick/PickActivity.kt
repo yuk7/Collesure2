@@ -76,7 +76,7 @@ class PickActivity : AppCompatActivity() {
                         }
                         override fun onLoadFailed(errorDrawable: Drawable?) {
                             val intent = Intent(Intent.ACTION_SEND)
-                                .setType("plain/text")
+                                .setType("text/plain")
                                 .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
                             startActivity(intent)
                         }
