@@ -14,19 +14,13 @@ import com.example.collesure2.data.ImageItem
 
 class RecyclerFragment : Fragment() {
 
-    companion object {
-        fun newInstance(): RecyclerFragment {
-            return RecyclerFragment()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val bundle = arguments
         val imageList = bundle!!.get("imageList") as List<ImageItem>
 
-        val recycler = view.findViewById<RecyclerView>(R.id.recyclerview).apply {
+        view.findViewById<RecyclerView>(R.id.recyclerview).apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(context, 2)
             adapter = RecyclerAdapter(context, imageList)
