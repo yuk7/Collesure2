@@ -9,7 +9,10 @@ import com.example.collesure2.data.ImageItem
 import com.example.collesure2.data.repository.AppDB
 import com.example.collesure2.data.repository.favorite.Favorite
 import com.example.collesure2.ui.list.RecyclerFragment
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FavoriteFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,9 +33,9 @@ class FavoriteFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         GlobalScope.launch(Dispatchers.Main) {
-            async(Dispatchers.Default) {
+            withContext(Dispatchers.Default) {
                 searchFavorite("")
-            }.await().let {
+            }.let {
                 showRecycler(it)
             }
         }
