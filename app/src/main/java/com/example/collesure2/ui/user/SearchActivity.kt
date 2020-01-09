@@ -8,6 +8,8 @@ import androidx.appcompat.widget.SearchView
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
 import com.example.collesure2.data.network.EngineGoogle
+import com.example.collesure2.data.repository.AppDB
+import com.example.collesure2.data.repository.history.History
 import com.example.collesure2.ui.list.RecyclerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,6 +41,9 @@ class SearchActivity : AppCompatActivity() {
                 val engine = EngineGoogle()
                 GlobalScope.launch(Dispatchers.Main) {
                     withContext(Dispatchers.Default) {
+                        val history = History()
+                        history.word = text!!
+                        AppDB.getInstance(applicationContext).historyDao().insert(history)
                         engine.searchImage(text!!, 0, 100, nsfw)
                     }.let {
                         showResultFragment(it)
