@@ -1,21 +1,29 @@
 package com.example.collesure2.ui.pick
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
 import com.github.chrisbanes.photoview.PhotoView
+import java.io.File
+import java.io.FileOutputStream
+import kotlin.random.Random
 
 
 class PickActivity : AppCompatActivity() {
 
-    var imgItem = ImageItem()
+    private var imgItem = ImageItem()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +54,6 @@ class PickActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -55,10 +61,29 @@ class PickActivity : AppCompatActivity() {
                 return true
             }
             R.id.pick_share -> {
-                val intent = Intent(Intent.ACTION_SEND)
-                    .setType("text/plain")
-                    .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
-                startActivity(intent)
+                Glide.with(this)
+                    .asBitmap()
+                    .load(imgItem.imageUrl)
+                    .into(object : CustomTarget<Bitmap>(){
+                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                            val png = cacheToPNG(resource)
+
+                            val intent = Intent(Intent.ACTION_SEND)
+                                .setType("image/png")
+                                .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
+                                .putExtra(Intent.EXTRA_STREAM, png)
+                            startActivity(intent)
+                        }
+                        override fun onLoadFailed(errorDrawable: Drawable?) {
+                            val intent = Intent(Intent.ACTION_SEND)
+                                .setType("text/plain")
+                                .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
+                            startActivity(intent)
+                        }
+                        override fun onLoadCleared(placeholder: Drawable?) {
+
+                        }
+                    })
                 return true
             }
             R.id.pick_browser -> {
@@ -68,5 +93,16 @@ class PickActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun cacheToPNG(bitmap: Bitmap): Uri {
+        val cachePath = File(applicationContext.cacheDir, "images")
+        cachePath.mkdirs()
+        val filePath = File(cachePath, Random.nextInt().toString() + ".png")
+        val fos = FileOutputStream(filePath.absolutePath)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+        fos.close()
+
+        return FileProvider.getUriForFile(applicationContext, "$packageName.fileprovider", filePath)
     }
 }
