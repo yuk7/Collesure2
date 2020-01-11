@@ -4,28 +4,22 @@
 楽に画像収集したいという我欲
 内容的にstoreには出せない模様(スクレイピングしてるため)
 
-## How to use
+## 機能
+- 画像検索
+- お気に入り登録
+- 検索履歴
+
+## 使い方
 検索ワードを入力して検索ボタンをタップ
 
 以上。
 
 履歴やアルバム機能的なものを実装予定
 
-## 使用ライブラリ
- - Glide
- - OkHttp3
- - Coroutine
- - Material Components
- - AndroidX
-    - BottomNavigationView
-    - RecyclerView
-    - Room
-  
-## Architecture
- MVVM(の予定)
+## 作者
+[Daishin16](https://github.com/Daishin16)
 
-## 対応バージョン
-Android6.0 (sdk23) ~ 
- 
-## License
+[yuk7](https://github.com/yuk7)
+
+## ライセンス
 MIT License
