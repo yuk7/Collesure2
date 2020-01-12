@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface HistoryDao {
-    @Query("SELECT * FROM history")
+    @Query("SELECT * FROM history ORDER BY id DESC")
     fun getAll(): List<History>
 
     @Query("SELECT * FROM history WHERE id = :id LIMIT 1")
