@@ -10,7 +10,7 @@ interface HistoryDao {
     @Query("SELECT * FROM history ORDER BY id DESC")
     fun getAll(): List<History>
 
-    @Query("SELECT * FROM history GROUP BY word ORDER BY id DESC")
+    @Query("SELECT * FROM history GROUP BY word,nsfw ORDER BY id DESC")
     fun getGroup(): List<History>
 
     @Query("SELECT * FROM history WHERE id = :id LIMIT 1")
@@ -19,8 +19,8 @@ interface HistoryDao {
     @Insert
     fun insert(history: History)
 
-    @Query("DELETE FROM history WHERE word = :word")
-    fun deleteByWord(word: String)
+    @Query("DELETE FROM history WHERE word = :word AND nsfw = :nsfw")
+    fun deleteByWordNsfw(word: String, nsfw: Boolean)
 
     @Delete
     fun delete(history: History)

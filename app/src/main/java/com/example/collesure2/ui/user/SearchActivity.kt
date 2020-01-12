@@ -43,6 +43,7 @@ class SearchActivity : AppCompatActivity() {
                     withContext(Dispatchers.Default) {
                         val history = History()
                         history.word = text!!
+                        history.nsfw = nsfw
                         AppDB.getInstance(applicationContext).historyDao().insert(history)
                         engine.searchImage(text!!, 0, 100, nsfw)
                     }.let {

@@ -21,11 +21,16 @@ class HistoryAdapter(private val context: Context, private val historyList: List
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.itemView.searchWords.text = historyList[position].word)
+        var word = historyList[position].word
+        if(!historyList[position].nsfw) {
+            word += "  (セーフサーチ)"
+        }
+        holder.itemView.searchWords.text = word
 
         holder.itemView.searchWords.setOnClickListener {
             val intent = Intent(context, SearchActivity::class.java)
             intent.putExtra("word", historyList[position].word)
+            intent.putExtra("nsfw", historyList[position].nsfw)
             it.context.startActivity(intent)
         }
     }
