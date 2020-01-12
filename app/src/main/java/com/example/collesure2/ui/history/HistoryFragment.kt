@@ -21,7 +21,7 @@ class HistoryFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Main) {
             withContext(Dispatchers.Default) {
                 val appdb = AppDB.getInstance(context!!)
-                appdb.historyDao().getAll()
+                appdb.historyDao().getGroup()
             }.let {
                 view.findViewById<RecyclerView>(R.id.recyclerview).apply {
                     setHasFixedSize(true)
