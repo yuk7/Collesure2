@@ -1,4 +1,16 @@
 <resources>
     <string name="app_name">Collesure2</string>
-    <string name="header">general</string>
+    <string name="header_search">検索に関して</string>
+    <string name="header_app">サポート</string>
+    <string name="title_save_history">検索履歴を保存</string>
+    <string name="summary_save_history">検索履歴を保存しますか？</string>
+    <string name="title_safe_search">セーフサーチの有無</string>
+    <string name="summary_safe_search">ONにするとセンシティブな画像が表示されなくなります</string>
+    <string name="title_search_history">検索履歴の削除</string>
+    <string name="summary_search_history">検索履歴をすべて削除します</string>
+
+    <string name="title_help">ヘルプ</string>
+    <string name="summary_help">利用規約などバージョン情報</string>
+    <string name="title_about_app">ご意見やご要望</string>
+    <string name="summary_about_app">このアプリへのご意見やご要望</string>
 </resources>
