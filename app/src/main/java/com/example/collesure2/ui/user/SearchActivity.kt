@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.preference.PreferenceManager
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
 import com.example.collesure2.data.network.EngineGoogle
@@ -39,12 +40,16 @@ class SearchActivity : AppCompatActivity() {
         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(text: String?): Boolean {
                 val engine = EngineGoogle()
+                val prefs =  PreferenceManager.getDefaultSharedPreferences(applicationContext)
                 GlobalScope.launch(Dispatchers.Main) {
                     withContext(Dispatchers.Default) {
-                        val history = History()
-                        history.word = text!!
-                        history.nsfw = nsfw
-                        AppDB.getInstance(applicationContext).historyDao().insert(history)
+                        if(prefs.getBoolean("isSaveHistory", true)) {
+                            val history = History()
+                            history.word = text!!
+                            history.nsfw = nsfw
+                            AppDB.getInstance(applicationContext).historyDao().insert(history)
+                        }
+
                         engine.searchImage(text!!, 0, 100, nsfw)
                     }.let {
                         showResultFragment(it)
