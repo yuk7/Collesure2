@@ -16,6 +16,10 @@ import com.bumptech.glide.request.transition.Transition
 import com.example.collesure2.R
 import com.example.collesure2.data.ImageItem
 import com.github.chrisbanes.photoview.PhotoView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import kotlin.random.Random
@@ -66,13 +70,17 @@ class PickActivity : AppCompatActivity() {
                     .load(imgItem.imageUrl)
                     .into(object : CustomTarget<Bitmap>(){
                         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                            val png = cacheToPNG(resource)
-
-                            val intent = Intent(Intent.ACTION_SEND)
-                                .setType("image/png")
-                                .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
-                                .putExtra(Intent.EXTRA_STREAM, png)
-                            startActivity(intent)
+                            GlobalScope.launch(Dispatchers.Main) {
+                                withContext(Dispatchers.Default) {
+                                    cacheToPNG(resource)
+                                }.let {
+                                    val intent = Intent(Intent.ACTION_SEND)
+                                        .setType("image/png")
+                                        .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
+                                        .putExtra(Intent.EXTRA_STREAM, it)
+                                    startActivity(intent)
+                                }
+                            }
                         }
                         override fun onLoadFailed(errorDrawable: Drawable?) {
                             val intent = Intent(Intent.ACTION_SEND)
