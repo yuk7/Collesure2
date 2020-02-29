@@ -1,5 +1,6 @@
 package io.github.yuk7.collesure2.data.network
 
+import android.util.Log
 import io.github.yuk7.collesure2.data.ImageItem
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -37,9 +38,16 @@ class EngineGoogle : SearchEngine {
             if(json_item.getInt(0) == 1) {
                 val json_item_img = json_item.getJSONArray(1)
                 val item = ImageItem()
+                Log.d("item", json_item_img.toString())
                 item.imageUrl = json_item_img.getJSONArray(3).getString(0)
                 item.thumbIUrl = json_item_img.getJSONArray(2).getString(0)
-                item.url = json_item_img.getJSONObject(9).getJSONArray("2003").getString(2)
+                if (json_item_img.getBoolean(8)) {
+                    item.url = json_item_img.getJSONObject(11).getJSONArray("2003").getString(2)
+                    item.tag = json_item_img.getJSONObject(11).getJSONArray("2003").getString(3)
+                } else {
+                    item.url = json_item_img.getJSONObject(9).getJSONArray("2003").getString(2)
+                    item.tag = json_item_img.getJSONObject(9).getJSONArray("2003").getString(3)
+                }
                 items.add(item)
             }
         }
