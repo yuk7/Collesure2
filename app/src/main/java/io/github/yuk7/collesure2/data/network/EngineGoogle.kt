@@ -1,8 +1,5 @@
 package io.github.yuk7.collesure2.data.network
 
-import android.util.Log
-import androidx.core.util.rangeTo
-import com.google.gson.Gson
 import io.github.yuk7.collesure2.data.ImageItem
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -35,7 +32,7 @@ class EngineGoogle : SearchEngine {
         var ds2 = parseHtml(getHtml(word, nsfw))
         val json_items = parseJson(ds2)
         val items = arrayListOf<ImageItem>()
-        for(i in 0 until json_items.length()-1) {
+        for(i in 0 until json_items.length()) {
             val json_item = json_items.getJSONArray(i)
             if(json_item.getInt(0) == 1) {
                 val json_item_img = json_item.getJSONArray(1)
