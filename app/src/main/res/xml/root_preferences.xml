@@ -19,6 +19,16 @@
             android:title="@string/title_search_history" />
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/title_display">
+        <ListPreference
+            android:title="@string/select_theme"
+            android:summary="@string/summary_select_theme"
+            android:key="select_theme"
+            android:entries="@array/entry_sample"
+            android:entryValues="@array/entry_sample_values"
+            />
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/header_app">
         <Preference
             android:key="help"

@@ -9,6 +9,13 @@
     <string name="title_search_history">検索履歴の削除</string>
     <string name="summary_search_history">検索履歴をすべて削除します</string>
 
+    <string name="title_display">表示に関して</string>
+    <string name="select_theme">テーマの選択</string>
+    <string name="summary_select_theme">使用するテーマを選択します。</string>
+    <string name="theme_default">システムの設定を使用する</string>
+    <string name="theme_light">ライトテーマ</string>
+    <string name="theme_dark">ダークテーマ</string>
+
     <string name="title_help">ヘルプ</string>
     <string name="summary_help">利用規約などバージョン情報</string>
     <string name="title_about_app">ご意見やご要望</string>
