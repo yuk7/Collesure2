@@ -2,6 +2,8 @@ package io.github.yuk7.collesure2.ui.setting
 
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.yuk7.collesure2.R
@@ -28,6 +30,21 @@ class SettingFragment : PreferenceFragmentCompat() {
                 }
                 .setNegativeButton("Cancel", null).show()
             return@setOnPreferenceClickListener true
+        }
+
+        findPreference<ListPreference>("select_theme")!!.setOnPreferenceChangeListener { preference, newValue ->
+            when (newValue.toString()) {
+                "0" -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_UNSPECIFIED)
+                }
+                "1" -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+                "2" -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+            }
+            return@setOnPreferenceChangeListener true
         }
     }
 
