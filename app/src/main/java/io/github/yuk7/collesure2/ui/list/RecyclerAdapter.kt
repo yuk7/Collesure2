@@ -40,10 +40,16 @@ class RecyclerAdapter(private val context: Context, private val imageList: List<
         circular.start()
 
         Glide.with(context)
-            .load(imageList[position].thumbIUrl)
-            .placeholder(circular)
-            .error(Glide.with(context).load(imageList[position].imageUrl)
-                .error(R.drawable.ic_error_red_24dp))
+            .load(imageList[position].imageUrl)
+            .onlyRetrieveFromCache(true)
+            .error(
+                Glide.with(context).load(imageList[position].thumbIUrl)
+                    .placeholder(circular)
+                    .error(
+                        Glide.with(context).load(imageList[position].imageUrl)
+                            .error(R.drawable.ic_error_red_24dp)
+                    )
+            )
             .into(holder.itemView.item_iv)
 
         holder.itemView.item_iv.setOnClickListener {
