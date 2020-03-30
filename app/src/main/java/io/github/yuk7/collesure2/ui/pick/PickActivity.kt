@@ -78,7 +78,8 @@ class PickActivity : AppCompatActivity() {
                                         .setType("image/png")
                                         .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
                                         .putExtra(Intent.EXTRA_STREAM, it)
-                                    startActivity(intent)
+                                    val chooser = Intent.createChooser(intent, "Share with")
+                                    startActivity(chooser)
                                 }
                             }
                         }
@@ -86,7 +87,8 @@ class PickActivity : AppCompatActivity() {
                             val intent = Intent(Intent.ACTION_SEND)
                                 .setType("text/plain")
                                 .putExtra(Intent.EXTRA_TEXT, imgItem.imageUrl)
-                            startActivity(intent)
+                            val chooser = Intent.createChooser(intent, "Share with")
+                            startActivity(chooser)
                         }
                         override fun onLoadCleared(placeholder: Drawable?) {
 
