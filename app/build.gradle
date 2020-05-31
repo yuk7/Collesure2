@@ -31,7 +31,7 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
-    implementation 'com.squareup.okhttp3:okhttp:4.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
