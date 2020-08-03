@@ -61,7 +61,7 @@ class EngineGoogle : SearchEngine {
     }
 
     private fun parseHtml(html_txt: String): String {
-        val regex = "AF_initDataCallback\\(\\{key: 'ds:1', isError:  false , hash: '2', data:function\\(\\)\\{return ((?m).+?)\\}\\}\\);</script>"
+        val regex = "AF_initDataCallback\\(\\{key: 'ds:1', isError:  false , hash: '2', data:((?m).+?)\\}\\);</script>"
         val pattern = Pattern.compile(regex, Pattern.DOTALL)
         val matcher = pattern.matcher(html_txt)
         matcher.find()
