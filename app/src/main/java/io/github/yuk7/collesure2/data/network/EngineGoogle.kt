@@ -61,11 +61,11 @@ class EngineGoogle : SearchEngine {
     }
 
     private fun parseHtml(html_txt: String): String {
-        val regex = "AF_initDataCallback\\(\\{key: 'ds:1', isError:  false , hash: '2', data:((?m).+?)\\}\\);</script>"
+        val regex = "AF_initDataCallback\\(\\{key: 'ds:1'(.+?), data:((?m).+?)\\}\\);</script>"
         val pattern = Pattern.compile(regex, Pattern.DOTALL)
         val matcher = pattern.matcher(html_txt)
         matcher.find()
-        return matcher.group(1)!!
+        return matcher.group(2)!!
     }
 
     private fun getHtml(word: String, nsfw: Boolean): String {
